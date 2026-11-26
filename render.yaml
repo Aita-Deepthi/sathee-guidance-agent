@@ -1,0 +1,29 @@
+# Render Blueprint for the backend API (Render → New → Blueprint, or create a Web Service manually)
+services:
+  - type: web
+    name: sathee-guidance-agent-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false          # paste your Atlas connection string in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false          # your Vercel URL, e.g. https://sathee-guidance-agent.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: APP_TIMEZONE
+        value: Asia/Kolkata
